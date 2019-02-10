@@ -209,19 +209,43 @@ namespace ConsoleApp1
         //Calculate the sum of all the previously entered numbers and display it on the console.
         public static void task11_EnteredNumberSum()
         {
-            //int[] array;
-
-            Console.WriteLine("Enter the numbers or 'ok' to exit");
+            Console.WriteLine("Enter the numbers or 'ok' to exit: ");
             int sum = 0;
-            string number;
-            do
+            while (true)
             {
-                number = Console.ReadLine();
-                sum += Convert.ToInt32(number);
-            } while (number != "ok");
+                String numbers = Console.ReadLine();
+                if (numbers == "ok") break;
+                sum += Convert.ToInt32(numbers);
+            }
+            Console.WriteLine($"Sum of entered numbers = {sum}");
         }
 
-        //Сортировка одномерного массива
+        //Write a program and ask the user to enter a number. Compute the factorial of the number and print it on the console.
+        //For example, if the user enters 5, the program should calculate 5 x 4 x 3 x 2 x 1 and display it as 5! = 120.
+        public static void task12_Factorial()
+        {
+            Console.WriteLine("Enter a number: ");
+            int number = Convert.ToInt32(Console.ReadLine());
+            int factorial = 1;
+            for (int i = 2; i <= number; i++)
+                factorial *= i;
+            Console.WriteLine(factorial);
+        }
+
+        /*13) Пользователь вводит с клавиатуры целое число в одну строку, необходимо:
+        а) показать сколько в данном числе цифр
+        б) перевернуть число и вывести на экран (было 12345 стало 54321)
+        в) показать на экран сумму цифр в числе*/
+        public static void task13_Factorial()
+        {
+            Console.WriteLine("Enter a number: ");
+            int number = Convert.ToInt32(Console.ReadLine());
+
+        }
+
+
+
+            //Сортировка одномерного массива
         public static void task34_OneArraySort()
         {
             int[] arraySort = new int[5];
@@ -253,6 +277,7 @@ namespace ConsoleApp1
 
         }
 
+        // сортировка двумерного массива
         public static void task35_TwoArraySort()
         {
             int[,] array = { { 9, 5, 6 }, { 2, 4, 1 }, { 8, 7, 3 } };
@@ -262,44 +287,22 @@ namespace ConsoleApp1
 
             int temp;
 
-            //for (int i = 0; i < rows; i++)
-            //{
-            //    for (int j = columns - 1; j >= 0; j--)
-            //    {
-            //        Console.Write(array[i, j]);
-            //    }
-            //    Console.WriteLine();
-            //}
-
-            //for (int i = 0; i < rows; i++)
-            //{
-            //    for (int j = 0; j < columns; j++)
-            //    {
-            //        for (int k = columns - 1; k >= j; k--)
-            //        {
-
-            //            Console.Write(array[i, j]);
-            //        }
-            //    }
-            //    Console.WriteLine();
-            //}
-
             for (int i = 0; i < rows; i++)
             {
-                for (int j = columns - 1; j >= 0; j--)
+                //for (int j = columns - 1; j >= 0; j--)
+                for (int j = 0; j < columns; j++)
                 {
-                    //x = array[i, j];
-                    //Console.Write(array[i, j]);
-                    for (int k = 0; k < j; k++)
+                    for (int k = columns-1; k >= 0; k--)
+                    //for (int k = 0; k < j; k++)
                     {
-                        Console.Write(array[i, j]);
-                        if (array[i, k] > array[i, k+1])
+                        if (array[i, k] > array[i, k + 1])
                         {
                             temp = array[i, k];
                             array[i, k] = array[i, k + 1];
                             array[i, k + 1] = temp;
                         }
-                        Console.Write(array[i, j]);
+                        Console.Write(array[i, j] + " ");
+                        Console.Write(array[i, k] + " ");
                     }
                 }
                 Console.WriteLine();
@@ -309,14 +312,12 @@ namespace ConsoleApp1
             {
                 for (int j = columns - 1; j >= 0; j--)
                 {
-                    Console.Write(array[i, j]);
+                    Console.Write(array[i, j] + "\t");
                 }
                 Console.WriteLine();
             }
         }
-
         
-
             static void Main(string[] args)
         {
             //task1_NumberParity();
@@ -330,8 +331,10 @@ namespace ConsoleApp1
             //task9_ImageFrame();
             //task10_DivisibleNumber();
             //task11_EnteredNumberSum();
+            task12_Factorial();
+
             //task34_OneArraySort();
-            task35_TwoArraySort();
+            //task35_TwoArraySort();
         }
     }
 }
