@@ -1,11 +1,12 @@
 using System;
+using System.Threading;
 
 namespace ConsoleApp1
 {
     class Program
     {
-
-        public static void task1_NumberParity() //Проверить, является ли введенное число четным.
+        //Проверить, является ли введенное число четным.
+        public static void task1_NumberParity()
         {
             Console.Write("Enter a number: ");
             int number = int.Parse(Console.ReadLine());
@@ -13,7 +14,8 @@ namespace ConsoleApp1
             else Console.WriteLine("{0} - Odd number", number);
         }
 
-        public static void task2_MinAndMaxValues() //Ввести 3 числа. Вывести: Максимальное и Минимальное число
+        //Ввести 3 числа. Вывести: Максимальное и Минимальное число
+        public static void task2_MinAndMaxValues()
         {
             Console.Write("Enter 3 numbers: ");
             int number1 = int.Parse(Console.ReadLine());
@@ -42,7 +44,8 @@ namespace ConsoleApp1
             Console.WriteLine("{0} is a minimum value and {1} is a maximum value", minValue, maxValue);
         }
 
-        public static void task3_DaysAndWeeks() //Ввести количество дней. Вывести: Количество недель и остаток дней
+        //Ввести количество дней. Вывести: Количество недель и остаток дней
+        public static void task3_DaysAndWeeks()
         {
             Console.Write("Enter a number of days: ");
             int daysNumber = int.Parse(Console.ReadLine());
@@ -236,16 +239,272 @@ namespace ConsoleApp1
         а) показать сколько в данном числе цифр
         б) перевернуть число и вывести на экран (было 12345 стало 54321)
         в) показать на экран сумму цифр в числе*/
-        public static void task13_Factorial()
+        public static void task13_EnteredNumber()
         {
-            Console.WriteLine("Enter a number: ");
-            int number = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Enter a number: ");
+            string text = Console.ReadLine();
+            Console.WriteLine($"The length of the entered number: {text.Length}");
+            int number = Convert.ToInt32(text);
 
+            int swappedNumber = 0;
+            int sum = 0;
+            while (number > 0)
+            {
+                int remainder = number % 10;
+                swappedNumber *= 10;
+                swappedNumber += remainder;
+                sum += remainder;
+                number /= 10;
+            }
+            Console.WriteLine($"Swapped number: {swappedNumber}\nSum: {sum}");
+
+            //char[] array = text.ToCharArray();
+            //int sum = 0;
+            //for (int i = 0; i < array.Length; i++)
+            //{
+            //    sum += Convert.ToInt32(array[i]);
+            //    Console.WriteLine($"Array element: {array[i]}");
+            //    Console.WriteLine($"Sum: {sum}");
+            //}
+            //Array.Reverse(array);
+            //Console.WriteLine(sum);
+            //Console.WriteLine(array);
+            //Console.WriteLine(array.Length);
         }
 
+        /*14) Разработать программу, которая выводит на экран линию из символов.
+        Число символов, какой использовать символ, и какая будет линия - вертикальная, или горизонтальная - указывает пользователь.*/
+        public static void task14_SymbolLine()
+        {
+            Console.Write("Enter a number of symbols: ");
+            int symbolNumbers = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Enter a symbol type: ");
+            char symbolType = Convert.ToChar(Console.ReadLine());
+            Console.Write("Enter a symbol line: 'h' - horizontal or 'v' - vertical: ");
+            char symbolLine = Convert.ToChar(Console.ReadLine());
 
+            for (int i = 0; i < symbolNumbers; i++)
+            {
+                if (symbolLine == 'h')
+                    Console.Write($"{symbolType} ");
+                else if (symbolLine == 'v')
+                    Console.WriteLine($"{symbolType}");
+                else
+                {
+                    Console.WriteLine("Wrong symbol line");
+                    break;
+                }
+            }
+            Console.WriteLine();
+        }
 
-            //Сортировка одномерного массива
+        //15) Написать программу, которая находит сумму всех целых нечетных чисел в диапазоне, указанном пользователем.
+        public static void task15_SumOfOddNumbers()
+        {
+            Console.Write("Enter the first and lower number: ");
+            int number1 = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Enter the second and higher number: ");
+            int number2 = Convert.ToInt32(Console.ReadLine());
+
+            int sum = 0;
+            for (int i = number1; i <= number2; i++)
+            {
+                if (i % 2 != 0)
+                    sum += i;
+            }
+            Console.WriteLine(sum);
+        }
+
+        //17) Написать программу, которая находит сумму всех целых чисел от n до m включительно.
+        public static void task17_SumOfNumbers()
+        {
+            Console.Write("Enter the first and lower number: ");
+            int n = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Enter the second and higher number: ");
+            int m = Convert.ToInt32(Console.ReadLine());
+
+            int sum = 0;
+            for (int i = n; i <= m; i++)
+            {
+                sum += i;
+            }
+            Console.WriteLine(sum);
+        }
+
+        /*18) Если сумма трех x,y,z различных числел больше 100, то наименьшее из этих чисел - заменить полусуммой двух других, 
+        иначе - меньшее из x и y заменить суммой оставшихся.*/
+        public static void task18_ThreeNumbers()
+        {
+            double x, y, z;
+            Console.WriteLine("Enter three numbers:");
+            x = Convert.ToInt32(Console.ReadLine());
+            y = Convert.ToInt32(Console.ReadLine());
+            z = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine($"Entered numbers\nX: {x}\nY: {y}\nZ: {z}");
+            double sum = x + y + z;
+
+            if (sum > 100)
+            {
+                if (x < y && x < z)
+                    x = (y + z) / 2;
+                else if (y < z)
+                    y = (x + z) / 2;
+                else
+                    z = (x + y) / 2;
+                Console.WriteLine($"Changed numbers\nX: {x}\nY: {y}\nZ: {z}");
+            }
+            else
+            {
+                if (x > y)
+                    y = x + z;
+                else if (x < y)
+                    x = y + z;
+                Console.WriteLine($"Changed numbers\nX: {x}\nY: {y}\nZ: {z}");
+            }
+        }
+
+        /*19) На часах h часов m минут и s секунд. Вывести время через одну секунду.*/
+        public static void task19_Delay()
+        {
+            DateTime time = DateTime.Now;
+            Console.WriteLine(time);
+            int h = time.Hour;
+            int m = time.Minute;
+            int s = time.Second;
+            int[] array = new[] { h, m, s };
+            int count = 0;
+            for (int i = 0; i < array.Length; i++)
+            {
+                Console.WriteLine(array[i]);
+                Thread.Sleep(1000);
+            }
+        }
+
+        //20) Пользователь вводит 4-х-значное число, поменять местами 1 с 2 и 3 с 4 цифры.Если число не 4-х значное - вывести сообщение.
+        public static void task20_4DigitNumber()
+        {
+            Console.Write("Enter a 4-digit number: ");
+            string textNumber = Console.ReadLine();
+            char[] array = textNumber.ToCharArray();
+            if (textNumber.Length == 4)
+            {
+                char temp = '0';
+                temp = array[0];
+                array[0] = array[1];
+                array[1] = temp;
+                temp = array[2];
+                array[2] = array[3];
+                array[3] = temp;
+                string result = string.Concat(array);
+                Console.WriteLine(result);
+            } else
+                Console.WriteLine("Not a 4-digit number. Try again...");
+        }
+
+        //21) Пользователь вводит 6-ти значное число, определить является ли число счастливым(сумма первых 3-х цифр равна сумме вторых 3-х цифр).
+        public static void task21_6DigitNumber()
+        {
+            Console.Write("Enter a 6-digit number: ");
+            string number = Console.ReadLine();
+            int n = Convert.ToInt32(number);
+            int[] array = new int[number.Length];
+
+            if (number.Length == 6)
+            {
+                int sum1 = 0, sum2 = 0;
+                for (int i = 0; i < number.Length; i++)
+                {
+                    array[i] = n % 10;
+                    n /= 10;
+                }
+                sum1 = array[0] + array[1] + array[2];
+                sum2 = array[3] + array[4] + array[5];
+
+                if(sum1 == sum2)
+                {
+                    Console.WriteLine("Lucky number");
+                }
+                else Console.WriteLine("Better luck next time");
+            }
+            else
+                Console.WriteLine("Not a 6-digit number. Try again...");
+
+            //if (number.Length == 6)
+            //{
+            //    int sum1 = 0, sum2 = 0;
+            //    for (int i = 0; i < number.Length-3; i++)
+            //    {
+            //        sum1 += number[i];
+            //        //sum1 = number[0] + number[1] + number[2];
+            //    }
+            //    for (int j = 3; j < number.Length; j++)
+            //    {
+            //        sum2 += number[j];
+            //        //sum2 = number[3] + number[4] + number[5];
+            //    }
+            //    if (sum1 == sum2)
+            //    {
+            //        Console.WriteLine("Lucky number");
+            //    }
+            //    else Console.WriteLine("Better luck next time");
+            //}
+            //else
+            //    Console.WriteLine("Not a 6-digit number. Try again...");
+        }
+
+        //22) С клавиатуры вводятся n чисел.
+        //Составьте программу, которая определяет кол-во отрицательных, кол-во положительных и кол-во нулей среди введеных чисел.
+        //Значение n вводится с клавиатуры.
+
+            //23) Сколько нечетных среди n введенных
+
+            //24) Вывод всех двухзначных чисел, кратных 5
+
+            //25) Найти сумму цифр целого положительного числа
+
+            //26) Найти max из введенных чисел
+
+            //27) Есть ли среди введенных число k
+
+            //28) Даны натуральные числа от 20 до 50.Напечатать те из них, которые делятся на 3, но не делятся на 5.
+
+            //29) Составьте программу, выводящую на экран квадраты чисел от 10 до 20 включительно.
+
+            //30) Пользователь вводит число.Определить количество цифр в числе и наибольшую цифру числа.
+
+            //31) Найдите все четырехзначные числа, сумма цифр каждого из которых равна 15.
+
+            //32) Одноклеточная амеба каждые 3 часа делится на 2 клетки.Определить, сколько амеб будет через 3, 6, 9, 12,..., 24 часа.
+
+            //33) Начав тренировки, лыжник в первый день пробежал 10 км.Каждый следующий день он увеличивал пробeг на 10% от пробега предыдущего дня.Определить в какой день суммарный пробег за все дни превысит 100 км.
+
+            static void Main(string[] args)
+        {
+            //task1_NumberParity();
+            //task2_MinAndMaxValues();
+            //task3_DaysAndWeeks();
+            //task4_NumbersSwap();
+            //task5_ConvertFromMeters();
+            //task6_roomAndWallpaper();
+            //task7_Triangles();
+            //task8_ValidNumber();
+            //task9_ImageFrame();
+            //task10_DivisibleNumber();
+            //task11_EnteredNumberSum();
+            //task12_Factorial();
+            //task13_EnteredNumber();
+            //task14_SymbolLine();
+            //task15_SumOfOddNumbers();
+            //task17_SumOfNumbers();
+            //task18_ThreeNumbers();
+            //task19_Delay();
+            //task20_4DigitNumber();
+            task21_6DigitNumber();
+            //task34_OneArraySort();
+            //task35_TwoArraySort();
+        }
+
+        //Сортировка одномерного массива
         public static void task34_OneArraySort()
         {
             int[] arraySort = new int[5];
@@ -277,7 +536,7 @@ namespace ConsoleApp1
 
         }
 
-        // сортировка двумерного массива
+        //Сортировка двумерного массива
         public static void task35_TwoArraySort()
         {
             int[,] array = { { 9, 5, 6 }, { 2, 4, 1 }, { 8, 7, 3 } };
@@ -318,23 +577,6 @@ namespace ConsoleApp1
             }
         }
         
-            static void Main(string[] args)
-        {
-            //task1_NumberParity();
-            //task2_MinAndMaxValues();
-            //task3_DaysAndWeeks();
-            //task4_NumbersSwap();
-            //task5_ConvertFromMeters();
-            //task6_roomAndWallpaper();
-            //task7_Triangles();
-            //task8_ValidNumber();
-            //task9_ImageFrame();
-            //task10_DivisibleNumber();
-            //task11_EnteredNumberSum();
-            task12_Factorial();
-
-            //task34_OneArraySort();
-            //task35_TwoArraySort();
-        }
+        
     }
 }
