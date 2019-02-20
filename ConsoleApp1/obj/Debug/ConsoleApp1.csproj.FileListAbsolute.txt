@@ -5,3 +5,10 @@ D:\Programming\coe_intetics_c#\Visual_Studio\ExercisesIntetics\ConsoleApp1\bin\D
 D:\Programming\coe_intetics_c#\Visual_Studio\ExercisesIntetics\ConsoleApp1\bin\Debug\ConsoleApp1.pdb
 D:\Programming\coe_intetics_c#\Visual_Studio\ExercisesIntetics\ConsoleApp1\obj\Debug\ConsoleApp1.exe
 D:\Programming\coe_intetics_c#\Visual_Studio\ExercisesIntetics\ConsoleApp1\obj\Debug\ConsoleApp1.pdb
+C:\Programming\_Visual_Studio_Exercises\ConsoleApp1\bin\Debug\ConsoleApp1.exe.config
+C:\Programming\_Visual_Studio_Exercises\ConsoleApp1\bin\Debug\ConsoleApp1.exe
+C:\Programming\_Visual_Studio_Exercises\ConsoleApp1\bin\Debug\ConsoleApp1.pdb
+C:\Programming\_Visual_Studio_Exercises\ConsoleApp1\obj\Debug\ConsoleApp1.csprojAssemblyReference.cache
+C:\Programming\_Visual_Studio_Exercises\ConsoleApp1\obj\Debug\ConsoleApp1.csproj.CoreCompileInputs.cache
+C:\Programming\_Visual_Studio_Exercises\ConsoleApp1\obj\Debug\ConsoleApp1.exe
+C:\Programming\_Visual_Studio_Exercises\ConsoleApp1\obj\Debug\ConsoleApp1.pdb

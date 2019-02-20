@@ -455,22 +455,132 @@ namespace ConsoleApp1
         //22) С клавиатуры вводятся n чисел.
         //Составьте программу, которая определяет кол-во отрицательных, кол-во положительных и кол-во нулей среди введеных чисел.
         //Значение n вводится с клавиатуры.
-        public static void task22_DiffNumberTypes()
+        public static void task22_PositiveNegative()
         {
             Console.Write("Enter a number of digits: ");
             int n = Convert.ToInt32(Console.ReadLine());
+            int[] array = new int[n];
+            int negative = 0;
+            int positive = 0;
+            int zero = 0;
 
+            Console.WriteLine("Enter the different digits:");
+            for (int i = 0; i < n; i++)
+            {
+                int number = Convert.ToInt32(Console.ReadLine());
+                if (number == 0)
+                    zero++;
+                else if (number > 0)
+                    positive++;
+                else if (number < 0)
+                    negative++;
+            }
+            Console.WriteLine($"Positive: {positive}\nNegative: {negative}\nZero: {zero}");
         }
 
-            //23) Сколько нечетных среди n введенных
+        //23) Сколько нечетных среди n введенных
+        public static void task23_EvenOdd()
+        {
+            Console.Write("Enter a number of digits: ");
+            int n = Convert.ToInt32(Console.ReadLine());
+            int[] array = new int[n];
+            int odd = 0;
+            int even = 0;
+            int zero = 0;
+
+            Console.WriteLine("Enter the different digits:");
+            for (int i = 0; i < n; i++)
+            {
+                int number = Convert.ToInt32(Console.ReadLine());
+                if (number == 0)
+                    zero++;
+                else if (number % 2 == 0)
+                    even++;
+                else if (number % 2 != 0)
+                    odd++;
+            }
+            Console.WriteLine($"Even: {even}\nOdd: {odd}\nZero: {zero}");
+        }
 
         //24) Вывод всех двухзначных чисел, кратных 5
+        public static void task24_MultipleOf()
+        {
+            Console.WriteLine("The 2-digit numbers are multiple of 5");
+            for (int i = 10; i <= 99; i++)
+            {
+                if (i % 5 == 0)
+                    Console.WriteLine(i);
+            }
+        }
 
         //25) Найти сумму цифр целого положительного числа
+        public static void task25_PositiveNumbersSum()
+        {
+            Console.Write("Enter a positive number: ");
+            string numberText = Console.ReadLine();
+            int number = Convert.ToInt32(numberText);
+            int[] array = new int[numberText.Length];
+
+            int sum = 0;
+            if (number > 0)
+            {
+                for (int i = 0; i < array.Length; i++)
+                {
+                    array[i] = number % 10;
+                    number /= 10;
+                }
+
+                for (int i = 0; i < array.Length; i++)
+                {
+                    sum += array[i];
+                }
+                Console.WriteLine(sum);
+            } else
+                Console.WriteLine("Wrong number. Please, enter a positive one.");
+        }
 
         //26) Найти max из введенных чисел
+        public static void task26_MaxNumber()
+        {
+            Console.Write("Enter a number of digits: ");
+            int n = Convert.ToInt32(Console.ReadLine());
+            int[] array = new int[n];
+
+            int max = 0;
+            Console.WriteLine("Enter the different digits:");
+            for (int i = 0; i < n; i++)
+            {
+                int number = Convert.ToInt32(Console.ReadLine());
+                if (number > max)
+                    max = number;
+            }
+            Console.WriteLine($"Max number is {max}");
+        }
 
         //27) Есть ли среди введенных число k
+        public static void task27_SearchedNumber()
+        {
+            Console.Write("Enter a number of digits: ");
+            int n = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Enter a searched number: ");
+            int k = Convert.ToInt32(Console.ReadLine());
+            int[] array = new int[n];
+
+            Console.WriteLine("Enter the different digits:");
+            for (int i = 0; i < n; i++)
+            {
+                int number = Convert.ToInt32(Console.ReadLine());
+                array[i] = number;
+            }
+
+            foreach (int i in array)
+            {
+                if (i == k)
+                    Console.WriteLine($"{k} is in the list");
+                else
+                    Console.WriteLine($"{k} is NOT in the list");
+            }
+        }
 
         //28) Даны натуральные числа от 20 до 50.Напечатать те из них, которые делятся на 3, но не делятся на 5.
 
@@ -506,6 +616,13 @@ namespace ConsoleApp1
             //task19_Delay();
             //task20_4DigitNumber();
             //task21_6DigitNumber();
+            //task22_PositiveNegative();
+            //task23_EvenOdd();
+            //task24_MultipleOf();
+            //task25_PositiveNumbersSum();
+            //task26_MaxNumber();
+            task27_SearchedNumber();
+
             //task34_OneArraySort();
             //task35_TwoArraySort();
         }
