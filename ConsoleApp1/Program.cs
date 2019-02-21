@@ -113,25 +113,34 @@ namespace ConsoleApp1
         public static void task6_roomAndWallpaper()
         {
             Console.Write("Enter a wallpaper length: ");
-            int wpLength = Convert.ToInt32(Console.ReadLine());
+            double wpLength = Convert.ToInt32(Console.ReadLine());
             Console.Write("Enter a wallpaper width: ");
-            int wpWidth = Convert.ToInt32(Console.ReadLine());
+            double wpWidth = Convert.ToInt32(Console.ReadLine());
             Console.Write("Enter a room height: ");
-            int roomHeight = Convert.ToInt32(Console.ReadLine());
+            double roomHeight = Convert.ToInt32(Console.ReadLine());
             Console.Write("Enter a room width: ");
-            int roomWidth = Convert.ToInt32(Console.ReadLine());
+            double roomWidth = Convert.ToInt32(Console.ReadLine());
             Console.Write("Enter a room length: ");
-            int roomLength = Convert.ToInt32(Console.ReadLine());
+            double roomLength = Convert.ToInt32(Console.ReadLine());
 
             // with remainder
-            int wpArea = wpLength * wpWidth;
-            int roomArea = (roomWidth + roomHeight) * 2 + (roomLength * roomHeight) * 2;
+            double wpArea = wpLength * wpWidth;
+            double roomArea = (roomWidth * roomHeight + roomLength * roomHeight) * 2;
 
-            double rollsWithRemainder = (double)roomArea / wpArea;
+            double rollsWithRemainder = roomArea / wpArea;
             Console.WriteLine($"Rolls with remainders: {rollsWithRemainder}");
 
             // without remainder
-            double rollsWithoutRemainder = Math.Ceiling((double)roomArea / wpArea);
+            double rollsWithoutRemainder = 0;
+            if (wpLength >= roomHeight)
+            {
+                //rollsWithoutRemainder = Math.Ceiling(roomArea / wpArea);
+                rollsWithoutRemainder = Math.Ceiling((roomLength + roomWidth) / wpWidth);
+            } else
+            {
+                double k = Math.Ceiling(roomHeight / wpLength);
+                rollsWithoutRemainder = Math.Ceiling((roomLength + roomWidth) / wpWidth) * k;
+            }
             Console.WriteLine($"Rolls without remainders: {rollsWithoutRemainder}");
         }
 
@@ -384,11 +393,20 @@ namespace ConsoleApp1
         public static void task20_4DigitNumber()
         {
             Console.Write("Enter a 4-digit number: ");
-            string textNumber = Console.ReadLine();
-            char[] array = textNumber.ToCharArray();
-            if (textNumber.Length == 4)
+            string n = Console.ReadLine();
+            int number = Convert.ToInt32(n);
+            int[] array = new int[n.Length];
+            
+            if (n.Length == 4)
             {
-                char temp = '0';
+                for (int i = n.Length-1; i >= 0; i--)
+                {
+                    array[i] = number % 10;
+                    number /= 10;
+                    Console.WriteLine(array[i]);
+                }
+
+                int temp = 0;
                 temp = array[0];
                 array[0] = array[1];
                 array[1] = temp;
@@ -397,6 +415,12 @@ namespace ConsoleApp1
                 array[3] = temp;
                 string result = string.Concat(array);
                 Console.WriteLine(result);
+
+                for (int i = 0; i < array.Length; i++)
+                {
+                    Console.Write(array[i]);
+                }
+                Console.WriteLine();
             } else
                 Console.WriteLine("Not a 4-digit number. Try again...");
         }
@@ -420,7 +444,7 @@ namespace ConsoleApp1
                 sum1 = array[0] + array[1] + array[2];
                 sum2 = array[3] + array[4] + array[5];
 
-                if(sum1 == sum2)
+                if (sum1 == sum2)
                 {
                     Console.WriteLine("Lucky number");
                 }
@@ -428,28 +452,6 @@ namespace ConsoleApp1
             }
             else
                 Console.WriteLine("Not a 6-digit number. Try again...");
-
-            //if (number.Length == 6)
-            //{
-            //    int sum1 = 0, sum2 = 0;
-            //    for (int i = 0; i < number.Length-3; i++)
-            //    {
-            //        sum1 += number[i];
-            //        //sum1 = number[0] + number[1] + number[2];
-            //    }
-            //    for (int j = 3; j < number.Length; j++)
-            //    {
-            //        sum2 += number[j];
-            //        //sum2 = number[3] + number[4] + number[5];
-            //    }
-            //    if (sum1 == sum2)
-            //    {
-            //        Console.WriteLine("Lucky number");
-            //    }
-            //    else Console.WriteLine("Better luck next time");
-            //}
-            //else
-            //    Console.WriteLine("Not a 6-digit number. Try again...");
         }
 
         //22) С клавиатуры вводятся n чисел.
@@ -582,11 +584,41 @@ namespace ConsoleApp1
             }
         }
 
-        //28) Даны натуральные числа от 20 до 50.Напечатать те из них, которые делятся на 3, но не делятся на 5.
+        //28) Даны натуральные числа от 20 до 50. Напечатать те из них, которые делятся на 3, но не делятся на 5.
+        public static void task28_NaturalNumbers()
+        {
+            for (int i = 20; i <= 50; i++)
+            {
+                if (i % 3 == 0 && i % 5 != 0)
+                    Console.WriteLine(i);
+            }
+        }
 
         //29) Составьте программу, выводящую на экран квадраты чисел от 10 до 20 включительно.
+        public static void task29_NumberSquares()
+        {
+            for (int i = 10; i <= 20; i++)
+                Console.WriteLine(i*i);
+        }
 
-        //30) Пользователь вводит число.Определить количество цифр в числе и наибольшую цифру числа.
+        //30) Пользователь вводит число. Определить количество цифр в числе и наибольшую цифру числа.
+        public static void task30_NumberOfDigitsAndMax()
+        {
+            Console.Write("Enter a number: ");
+            string n = Console.ReadLine();
+            int number = Convert.ToInt32(n);
+            int[] array = new int[n.Length];
+
+            int max = 0;
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = number % 10;
+                number /= 10;
+                if (array[i] > max)
+                    max = array[i];
+            }
+            Console.WriteLine($"Number of digits: {n.Length}\nMax number: {max}");
+        }
 
         //31) Найдите все четырехзначные числа, сумма цифр каждого из которых равна 15.
 
@@ -601,7 +633,7 @@ namespace ConsoleApp1
             //task3_DaysAndWeeks();
             //task4_NumbersSwap();
             //task5_ConvertFromMeters();
-            //task6_roomAndWallpaper();
+            task6_roomAndWallpaper();
             //task7_Triangles();
             //task8_ValidNumber();
             //task9_ImageFrame();
@@ -621,7 +653,10 @@ namespace ConsoleApp1
             //task24_MultipleOf();
             //task25_PositiveNumbersSum();
             //task26_MaxNumber();
-            task27_SearchedNumber();
+            //task27_SearchedNumber();
+            //task28_NaturalNumbers();
+            //task29_NumberSquares();
+            //task30_NumberOfDigitsAndMax();
 
             //task34_OneArraySort();
             //task35_TwoArraySort();
