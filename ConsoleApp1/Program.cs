@@ -113,15 +113,15 @@ namespace ConsoleApp1
         public static void task6_roomAndWallpaper()
         {
             Console.Write("Enter a wallpaper length: ");
-            double wpLength = Convert.ToInt32(Console.ReadLine());
+            double wpLength = Convert.ToDouble(Console.ReadLine());
             Console.Write("Enter a wallpaper width: ");
-            double wpWidth = Convert.ToInt32(Console.ReadLine());
+            double wpWidth = Convert.ToDouble(Console.ReadLine());
             Console.Write("Enter a room height: ");
-            double roomHeight = Convert.ToInt32(Console.ReadLine());
+            double roomHeight = Convert.ToDouble(Console.ReadLine());
             Console.Write("Enter a room width: ");
-            double roomWidth = Convert.ToInt32(Console.ReadLine());
+            double roomWidth = Convert.ToDouble(Console.ReadLine());
             Console.Write("Enter a room length: ");
-            double roomLength = Convert.ToInt32(Console.ReadLine());
+            double roomLength = Convert.ToDouble(Console.ReadLine());
 
             // with remainder
             double wpArea = wpLength * wpWidth;
@@ -135,11 +135,14 @@ namespace ConsoleApp1
             if (wpLength >= roomHeight)
             {
                 //rollsWithoutRemainder = Math.Ceiling(roomArea / wpArea);
-                rollsWithoutRemainder = Math.Ceiling((roomLength + roomWidth) / wpWidth);
+                rollsWithoutRemainder = Math.Ceiling((roomLength + roomWidth) / wpWidth) * 2;
+                //rollsWithoutRemainder = (roomLength + roomWidth) / wpWidth * 2;
             } else
             {
                 double k = Math.Ceiling(roomHeight / wpLength);
-                rollsWithoutRemainder = Math.Ceiling((roomLength + roomWidth) / wpWidth) * k;
+                //double k = roomHeight / wpLength;
+                rollsWithoutRemainder = Math.Ceiling((roomLength + roomWidth) / wpWidth) * k * 2;
+                //rollsWithoutRemainder = (roomLength + roomWidth) / wpWidth * k * 2;
             }
             Console.WriteLine($"Rolls without remainders: {rollsWithoutRemainder}");
         }
@@ -621,7 +624,23 @@ namespace ConsoleApp1
         }
 
         //31) Найдите все четырехзначные числа, сумма цифр каждого из которых равна 15.
-
+        public static void task31_SumOf4Digits()
+        {
+            int[] array = new int[4];
+            int sum = 0;
+            for (int i = 1000; i <= 9999; i++)
+            {
+                array[i] = i % 10;
+                i /= 10;
+                Console.WriteLine(array[i]);
+                sum += array[i];
+                if (sum == 15)
+                {
+                    Console.WriteLine(sum);
+                }
+            }
+        }
+        
         //32) Одноклеточная амеба каждые 3 часа делится на 2 клетки.Определить, сколько амеб будет через 3, 6, 9, 12,..., 24 часа.
 
         //33) Начав тренировки, лыжник в первый день пробежал 10 км.Каждый следующий день он увеличивал пробeг на 10% от пробега предыдущего дня.Определить в какой день суммарный пробег за все дни превысит 100 км.
@@ -633,7 +652,7 @@ namespace ConsoleApp1
             //task3_DaysAndWeeks();
             //task4_NumbersSwap();
             //task5_ConvertFromMeters();
-            task6_roomAndWallpaper();
+            //task6_roomAndWallpaper();
             //task7_Triangles();
             //task8_ValidNumber();
             //task9_ImageFrame();
@@ -657,6 +676,7 @@ namespace ConsoleApp1
             //task28_NaturalNumbers();
             //task29_NumberSquares();
             //task30_NumberOfDigitsAndMax();
+            task31_SumOf4Digits();
 
             //task34_OneArraySort();
             //task35_TwoArraySort();
