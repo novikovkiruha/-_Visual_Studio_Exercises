@@ -626,24 +626,184 @@ namespace ConsoleApp1
         //31) Найдите все четырехзначные числа, сумма цифр каждого из которых равна 15.
         public static void task31_SumOf4Digits()
         {
-            int[] array = new int[4];
+            int a, b, c, d;
+            int count = 0;
             int sum = 0;
-            for (int i = 1000; i <= 9999; i++)
+
+            for (int i = 1000; i <= 99999; i++)
             {
-                array[i] = i % 10;
-                i /= 10;
-                Console.WriteLine(array[i]);
-                sum += array[i];
+                a = i % 10;
+                b = (i / 10) % 10;
+                c = (i / 100) % 10;
+                d = (i / 1000) % 10;
+                sum = a + b + c + d;
                 if (sum == 15)
                 {
-                    Console.WriteLine(sum);
+                    Console.WriteLine(i);
+                    count++;
+                }
+            }
+            Console.WriteLine($"4-digit number with sum 15: {count}");
+        }
+
+        //32) Одноклеточная амеба каждые 3 часа делится на 2 клетки.Определить, сколько амеб будет через 3, 6, 9, 12,..., 24 часа.
+        public static void task32_Amoeba()
+        {
+            int cell = 2;
+            int amoeba = 1;
+
+            for (int i = 3; i <= 24; i+=3)
+            {
+                amoeba *= cell;
+                Console.WriteLine($"{amoeba} amoebas after {i} hours");
+            }
+        }
+
+        //33) Начав тренировки, лыжник в первый день пробежал 10 км.
+        //Каждый следующий день он увеличивал пробeг на 10% от пробега предыдущего дня.Определить в какой день суммарный пробег за все дни превысит 100 км.
+        public static void task33_Skier()
+        {
+            double km = 10;
+            double increment = 0.1;
+            int days = 1;
+            while (km < 100)
+            {
+                km += km * increment;
+                days++;
+            }
+            Console.WriteLine($"{km} km in {days} days");
+        }
+
+        //Additional tasks
+
+        //1) В двумерном массиве, значения представляют собой высоту зданий. 
+        //Вывести значения высот образовывающие линию горизонта, если смотреть на здания справа/слева.
+        //Пример:
+        //{ {3,	 0,	 7,	 4}, 
+        //  {2,  4,	 5,	 6},
+        //  {22, 2,	 6,	 3},
+        //  {0,	 5,	 1,	 0} }
+        //Output: линия горизонта справа/слева : {7, 6, 22, 5}
+        public static void addTask1_BuildingHeight()
+        {
+            int[,] array = {{3,  0,  7,  4},
+                            {2,  4,  5,  6},
+                            {22, 2,  6,  3},
+                            {0,  5,  1,  0}};
+
+            int rows = array.GetUpperBound(0) + 1;
+            int columns = array.Length / rows;
+            int[] maxArray = new int[rows];
+
+            for (int i = 0; i < rows; i++)
+            {
+                int max = 0;
+                for (int j = 0; j < columns; j++)
+                {
+                    if (array[i, j] > max)
+                    {
+                        max = array[i, j];
+                        maxArray[i] = max;
+                    }
+                }
+                //Console.WriteLine(string.Join(", ", maxArray));
+                //Console.Write(maxArray[i]);
+            }
+            Console.WriteLine(string.Join(", ", maxArray));
+        }
+
+        //2) Найти и вывести отсортированные дубликаты в массиве: {1, 2, 3, 4, 5, 6, 3, 2, 1}
+        //Output: 1, 2, 3;
+        public static void addTask2_DuplicateSort()
+        {
+            int[] array = { 1, 2, 3, 4, 5, 6, 3, 2, 1 };
+            int[] duplicates = new int[array.Length];
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                int counter = 0;
+                for (int j = 0; j < array.Length; j++)
+                {
+                    if (array[i] == array[j])
+                    {
+                        counter++;
+                        if (counter > 1)
+                            duplicates[j] = array[j];
+                    }
+                }
+            }
+            Console.WriteLine(string.Join(", ", duplicates));
+
+            int temp;
+            for (int i = 0; i < duplicates.Length; i++)
+            {
+                for (int j = i + 1; j < duplicates.Length; j++)
+                {
+                    if (duplicates[i] > duplicates[j])
+                    {
+                        temp = duplicates[i];
+                        duplicates[i] = duplicates[j];
+                        duplicates[j] = temp;
+                    }
+                }
+            }
+            Console.WriteLine(string.Join(", ", duplicates));
+
+            foreach (int i in duplicates)
+            {
+                if (i != 0)
+                    Console.WriteLine(string.Join(", ", i));
+            }
+        }
+
+        //3) Получив массив int[] Arr и искомое число N вернуть пары индексов чисел сумма которых == N
+        //Пример
+        //int[] Arr = {1, 2, 3, 3, 4, 55, 1, 4}, int n = 6.
+        //Output: 
+        //[2][3]
+        //[1][4]
+        //[1][7]
+
+        //4) Получив массив int[] Arr с length кратной 3, вернуть кортежи из 3 чисел сумма которых == 0
+        //Пример
+        //Int[] Arr = {0, -1, 2, -1, -1, 1}
+        //Output:
+        //(-1, 2, -1)
+        //(0, -1, -1)
+
+        //5) C помощью циклов нарисовать такую фигуру:
+        //*
+        //**
+        //***
+        //****
+        //***
+        //**
+        //*
+        //Максимальная высота вводится с клавиатуры (в данном примере высота 4)
+
+        //6) Вывести только простые числа от 1 до 100
+        public static void addTask6_PrimeNumber()
+        {
+            for (int i = 1; i <= 100; i++)
+            {
+                bool isPrime = true;
+                for (int j = 2; j < i; j++)
+                {
+                    if (i % j == 0)
+                    {
+                        isPrime = false;
+                        break;
+                    }
+                }
+                if (isPrime && i > 1)
+                {
+                    Console.WriteLine(i);
                 }
             }
         }
-        
-        //32) Одноклеточная амеба каждые 3 часа делится на 2 клетки.Определить, сколько амеб будет через 3, 6, 9, 12,..., 24 часа.
 
-        //33) Начав тренировки, лыжник в первый день пробежал 10 км.Каждый следующий день он увеличивал пробeг на 10% от пробега предыдущего дня.Определить в какой день суммарный пробег за все дни превысит 100 км.
+        //7) Рекурсия: Дано натуральное число k > 1 программа должна рекурсивно проверить простое это число или нет.
+
 
         static void Main(string[] args)
         {
@@ -676,7 +836,12 @@ namespace ConsoleApp1
             //task28_NaturalNumbers();
             //task29_NumberSquares();
             //task30_NumberOfDigitsAndMax();
-            task31_SumOf4Digits();
+            //task31_SumOf4Digits();
+            //task32_Amoeba();
+            //task33_Skier();
+            //addTask1_BuildingHeight();
+            addTask2_DuplicateSort();
+            //addTask6_PrimeNumber();
 
             //task34_OneArraySort();
             //task35_TwoArraySort();
