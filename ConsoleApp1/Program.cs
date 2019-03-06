@@ -22,25 +22,25 @@ namespace ConsoleApp1
             int number2 = int.Parse(Console.ReadLine());
             int number3 = int.Parse(Console.ReadLine());
 
-            int maxValue, minValue;
-            if (number1 > number2 && number1 > number3) maxValue = number1;
-            else if (number2 > number1 && number2 > number3) maxValue = number2;
-            else maxValue = number3;
+            int maxValue = 0, minValue = 0;
+            //if (number1 > number2 && number1 > number3) maxValue = number1;
+            //else if (number2 > number1 && number2 > number3) maxValue = number2;
+            //else maxValue = number3;
 
-            if (number1 < number2 && number1 < number3) minValue = number1;
-            else if (number2 < number1 && number2 < number3) minValue = number2;
-            else minValue = number3;
+            //if (number1 < number2 && number1 < number3) minValue = number1;
+            //else if (number2 < number1 && number2 < number3) minValue = number2;
+            //else minValue = number3;
 
-            //int[] array = new int[] { number1, number2, number3 };
+            int[] array = new int[] { number1, number2, number3 };
 
-            //for (int i = 0; i < array.Length; i++)
-            //{
-            //    maxValue = array[0];
-            //    minValue = array[0];
-            //    if (array[i] > maxValue) maxValue = array[i];
-            //    else minValue = array[i];
+            for (int i = 0; i < array.Length; i++)
+            {
+                maxValue = array[0];
+                minValue = array[0];
+                if (array[i] > maxValue) maxValue = array[i];
+                else if (array[i] < minValue) minValue = array[i];
 
-            //}
+            }
             Console.WriteLine("{0} is a minimum value and {1} is a maximum value", minValue, maxValue);
         }
 
@@ -241,10 +241,16 @@ namespace ConsoleApp1
         {
             Console.WriteLine("Enter a number: ");
             int number = Convert.ToInt32(Console.ReadLine());
+            //int factorial = 1;
+            //for (int i = 2; i <= number; i++)
+            //    factorial *= i;
+            //Console.WriteLine(factorial);
+
             int factorial = 1;
-            for (int i = 2; i <= number; i++)
+            for (int i = number; i >= 2; i--)
                 factorial *= i;
             Console.WriteLine(factorial);
+
         }
 
         /*13) Пользователь вводит с клавиатуры целое число в одну строку, необходимо:
@@ -255,33 +261,20 @@ namespace ConsoleApp1
         {
             Console.Write("Enter a number: ");
             string text = Console.ReadLine();
-            Console.WriteLine($"The length of the entered number: {text.Length}");
             int number = Convert.ToInt32(text);
 
             int swappedNumber = 0;
             int sum = 0;
             while (number > 0)
             {
-                int remainder = number % 10;
-                swappedNumber *= 10;
-                swappedNumber += remainder;
-                sum += remainder;
-                number /= 10;
+                // number 12345 1234 123 12
+                int remainder = number % 10; // 5 4 3 2
+                swappedNumber *= 10; // 0 50 40 30 20
+                swappedNumber += remainder; // 5 54 33
+                sum += remainder; // 5 9 12
+                number /= 10; // 1234 123 12
             }
-            Console.WriteLine($"Swapped number: {swappedNumber}\nSum: {sum}");
-
-            //char[] array = text.ToCharArray();
-            //int sum = 0;
-            //for (int i = 0; i < array.Length; i++)
-            //{
-            //    sum += Convert.ToInt32(array[i]);
-            //    Console.WriteLine($"Array element: {array[i]}");
-            //    Console.WriteLine($"Sum: {sum}");
-            //}
-            //Array.Reverse(array);
-            //Console.WriteLine(sum);
-            //Console.WriteLine(array);
-            //Console.WriteLine(array.Length);
+            //Console.WriteLine($"Length: {text.Length}\nSwapped number: {swappedNumber}\nSum: {sum}");
         }
 
         /*14) Разработать программу, которая выводит на экран линию из символов.
@@ -416,8 +409,6 @@ namespace ConsoleApp1
                 temp = array[2];
                 array[2] = array[3];
                 array[3] = temp;
-                string result = string.Concat(array);
-                Console.WriteLine(result);
 
                 for (int i = 0; i < array.Length; i++)
                 {
@@ -663,15 +654,18 @@ namespace ConsoleApp1
         //Каждый следующий день он увеличивал пробeг на 10% от пробега предыдущего дня.Определить в какой день суммарный пробег за все дни превысит 100 км.
         public static void task33_Skier()
         {
-            double km = 10;
-            double increment = 0.1;
+            double kmDaily = 10;
+            double distance = 0;
+            double increment = 1.1;
             int days = 1;
-            while (km < 100)
+            double maxDistance = 100;
+            while (distance <= maxDistance)
             {
-                km += km * increment;
+                kmDaily *= increment;
+                distance += kmDaily;
                 days++;
             }
-            Console.WriteLine($"{km} km in {days} days");
+            Console.WriteLine($"{days} days: {distance} km");
         }
 
         //Additional tasks
@@ -691,23 +685,21 @@ namespace ConsoleApp1
                             {22, 2,  6,  3},
                             {0,  5,  1,  0}};
 
-            int rows = array.GetUpperBound(0) + 1;
-            int columns = array.Length / rows;
+            int rows = array.GetLength(0);
+            int columns = array.GetLength(1);
             int[] maxArray = new int[rows];
 
-            for (int i = 0; i < rows; i++)
+            for (int i = 0; i < columns; i++)
             {
-                int max = 0;
-                for (int j = 0; j < columns; j++)
+                int max = array[0, i];
+                for (int j = 0; j < rows; j++)
                 {
-                    if (array[i, j] > max)
+                    if (array[j, i] > max)
                     {
-                        max = array[i, j];
-                        maxArray[i] = max;
+                        max = array[j, i];
                     }
                 }
-                //Console.WriteLine(string.Join(", ", maxArray));
-                //Console.Write(maxArray[i]);
+                maxArray[i] = max;
             }
             Console.WriteLine(string.Join(", ", maxArray));
         }
@@ -804,6 +796,26 @@ namespace ConsoleApp1
 
         //7) Рекурсия: Дано натуральное число k > 1 программа должна рекурсивно проверить простое это число или нет.
 
+        // Рекурсия: Числа Фибоначчи
+        static int Fibonachi(int n)
+        {
+            if (n == 0)
+                return 0;
+            if (n == 1)
+                return 1;
+            else
+                return Fibonachi(n - 1) + Fibonachi(n - 2);
+        }
+
+        // Рекурсия: Факториал
+        static int Factorial(int x)
+        {
+            if (x == 0)
+                return 1;
+            else
+                return x * Factorial(x - 1);
+        }
+
 
         static void Main(string[] args)
         {
@@ -839,9 +851,13 @@ namespace ConsoleApp1
             //task31_SumOf4Digits();
             //task32_Amoeba();
             //task33_Skier();
-            //addTask1_BuildingHeight();
-            addTask2_DuplicateSort();
+
+            addTask1_BuildingHeight();
+            //addTask2_DuplicateSort();
             //addTask6_PrimeNumber();
+
+            //Console.WriteLine(Fibonachi(3));
+            //Console.WriteLine(Factorial(5));
 
             //task34_OneArraySort();
             //task35_TwoArraySort();
@@ -882,41 +898,68 @@ namespace ConsoleApp1
         //Сортировка двумерного массива
         public static void task35_TwoArraySort()
         {
-            int[,] array = { { 9, 5, 6 }, { 2, 4, 1 }, { 8, 7, 3 } };
 
-            int rows = array.GetUpperBound(0) + 1;
-            int columns = array.Length / rows;
+            //int[,] array = { { 9, 5, 6 }, { 2, 4, 1 }, { 8, 7, 3 } };
 
-            int temp;
+            ////int rows = array.GetUpperBound(0) + 1;
+            //int rows = array.GetLength(0);
+            ////int columns = array.Length / rows;
+            //int columns = array.GetLength(1);
 
-            for (int i = 0; i < rows; i++)
+            //for (int i = 0; i < rows; i++)
+            //{
+            //    for (int j = columns - 1; j >= 0; j--)
+            //    {
+            //        for (int k = 0; k < j; k++)
+            //        {
+            //            if (array[i, k] > array[i, k + 1])
+            //            {
+            //                int temp = array[i, k];
+            //                array[i, k] = array[i, k + 1];
+            //                array[i, k + 1] = temp;
+            //            }
+            //        }
+            //    }
+            //}
+
+            //for (int i = 0; i < rows; i++)
+            //{
+            //    for (int j = 0; j < columns; j++)
+            //    {
+            //        Console.Write(array[i, j] + "\t");
+            //    }
+            //    Console.WriteLine();
+            //}
+
+            int[,] arr = new int[2, 3] { { 1, 3, 22 }, { 0, 2, 23 } };
+
+            for (int i = arr.GetLength(0) - 1; i > 0; i--)
             {
-                //for (int j = columns - 1; j >= 0; j--)
-                for (int j = 0; j < columns; j++)
+                for (int j = 0; j < arr.GetLength(1); j++)
                 {
-                    for (int k = columns-1; k >= 0; k--)
-                    //for (int k = 0; k < j; k++)
+
+                    for (int k = arr.GetLength(1) - 1; k >= 0; k--)
                     {
-                        if (array[i, k] > array[i, k + 1])
+                        Console.WriteLine($"k= {i - 1}");
+
+                        if (arr[i, k] < arr[i - 1, k])
                         {
-                            temp = array[i, k];
-                            array[i, k] = array[i, k + 1];
-                            array[i, k + 1] = temp;
+                            int temp = arr[i, k];
+                            arr[i, k] = arr[i - 1, k];
+                            arr[i - 1, k] = temp;
                         }
-                        Console.Write(array[i, j] + " ");
-                        Console.Write(array[i, k] + " ");
                     }
                 }
                 Console.WriteLine();
-            }
 
-            for (int i = 0; i < rows; i++)
-            {
-                for (int j = columns - 1; j >= 0; j--)
+                for (int z = 0; z < arr.GetLength(0); z++)
                 {
-                    Console.Write(array[i, j] + "\t");
+                    for (int p = 0; p < arr.GetLength(1); p++)
+                    {
+                        Console.Write(arr[z, p] + "\t");
+                    }
+                    Console.WriteLine();
                 }
-                Console.WriteLine();
             }
         }
         
